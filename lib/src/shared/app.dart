@@ -17,6 +17,7 @@ class _AppWidgetState extends ConsumerState<AppWidget> {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: router,
+      theme: ThemeData(useMaterial3: true),
     );
   }
 }
