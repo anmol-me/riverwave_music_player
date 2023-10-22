@@ -22,6 +22,7 @@ class HomeScreen extends ConsumerWidget {
               appBar: AppBar(
                 centerTitle: false,
                 title: const Text('Good Morning'),
+                actions: const [BrightnessToggle()],
                 bottom: const TabBar(
                   isScrollable: true,
                   tabs: [
