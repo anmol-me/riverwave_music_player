@@ -49,8 +49,8 @@ class ThemeProvider {
     final dynamicColors = ref.read(dynamicColorProvider);
 
     final dynamicPrimary = brightness == Brightness.light
-        ? dynamicColors!.lightDynamic?.primary
-        : dynamicColors!.darkDynamic?.primary;
+        ? dynamicColors?.lightDynamic?.primary
+        : dynamicColors?.darkDynamic?.primary;
 
     return ColorScheme.fromSeed(
       seedColor: dynamicPrimary ?? sourceColor(targetColor),
