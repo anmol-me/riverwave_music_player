@@ -5,11 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:universal_platform/universal_platform.dart';
 
-final constraintsProvider = StateProvider<BoxConstraints?>((ref) => null);
+final constraintsProvider = StateProvider<BoxConstraints>((ref) {
+  return const BoxConstraints(maxHeight: 100, maxWidth: 100);
+});
 
 final dynamicColorProvider =
-    StateProvider<({ColorScheme? darkDynamic, ColorScheme? lightDynamic})?>(
-  (ref) => null,
+StateProvider<({ColorScheme? darkDynamic, ColorScheme? lightDynamic})?>(
+      (ref) => (
+  lightDynamic: ColorScheme.fromSeed(seedColor: Colors.black, brightness: Brightness.light),
+  darkDynamic: ColorScheme.fromSeed(seedColor: Colors.black, brightness: Brightness.dark),
+  ),
 );
 
 Future setDesktopWindow() async {
@@ -24,22 +29,33 @@ void main() {
     setDesktopWindow();
   }
 
-  final ref = ProviderContainer();
-
   runApp(
-    LayoutBuilder(builder: (context, constraints) {
-      ref.read(constraintsProvider.notifier).update((state) => constraints);
+    ProviderScope(
+      child: Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          return LayoutBuilder(builder: (context, constraints) {
+            Future.delayed(Duration.zero).then((_) {
+              return ref
+                  .watch(constraintsProvider.notifier)
+                  .update((state) => constraints);
+            });
 
-      return DynamicColorBuilder(builder: (lightDynamic, darkDynamic) {
-        ref.read(dynamicColorProvider.notifier).update(
-              (state) => (lightDynamic: lightDynamic, darkDynamic: darkDynamic),
-            );
+            return DynamicColorBuilder(builder: (lightDynamic, darkDynamic) {
+              Future.delayed(Duration.zero).then((_) {
+                return ref.watch(dynamicColorProvider.notifier).update(
+                      (_) => (
+                  lightDynamic: lightDynamic,
+                  darkDynamic: darkDynamic
+                  ),
+                );
+              });
 
-        return UncontrolledProviderScope(
-          container: ref,
-          child: const AppWidget(),
-        );
-      });
-    }),
+              return const AppWidget();
+            });
+          });
+        },
+        // child: const AppWidget(),
+      ),
+    ),
   );
 }
