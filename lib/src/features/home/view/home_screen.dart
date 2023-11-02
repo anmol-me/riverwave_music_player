@@ -13,9 +13,10 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final constraints = ref.watch(constraintsProvider);
+    final playlists = ref.watch(playlistsProvider).randomPlaylists();
 
     /// Mobile
-    return constraints!.isMobile
+    return constraints.isMobile
         ? DefaultTabController(
             length: 4,
             child: Scaffold(
@@ -81,12 +82,18 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   AdaptiveContainer(
                     columnSpan: 12,
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 10,
-                      ),
-                      child: Text('Recently played'),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 10,
+                          ),
+                          child: Text('Recently played'),
+                        ),
+                        HomeRecent(playlists: playlists),
+                      ],
                     ),
                   ),
                 ],
