@@ -1,5 +1,6 @@
 import 'package:audio_player/src/shared/providers/theme.dart';
 import 'package:audio_player/src/shared/router.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -12,12 +13,16 @@ class AppWidget extends ConsumerWidget {
     final theme = ref.watch(themeProvider);
     final themeSettings = ref.watch(themeSettingsProvider);
 
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      routerConfig: router,
-      theme: theme.light(),
-      darkTheme: theme.dark(),
-      themeMode: themeSettings.themeMode,
+    return DynamicColorBuilder(
+      builder: (lightDynamic, darkDynamic) {
+        return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          routerConfig: router,
+          theme: theme.light(lightDynamic?.primary),
+          darkTheme: theme.dark(darkDynamic?.primary),
+          themeMode: themeSettings.themeMode,
+        );
+      }
     );
   }
 }

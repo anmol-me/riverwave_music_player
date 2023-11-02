@@ -1,4 +1,3 @@
-import 'package:audio_player/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
@@ -28,7 +27,6 @@ class ThemeProvider {
   ThemeProvider(this.ref);
 
   ThemeData light([Color? targetColor]) {
-    final targetColor = ref.read(themeSettingsProvider).sourceColor;
     final colorScheme = color(Brightness.light, targetColor);
 
     return ThemeData.light(useMaterial3: true).copyWith(
@@ -37,7 +35,6 @@ class ThemeProvider {
   }
 
   ThemeData dark([Color? targetColor]) {
-    final targetColor = ref.read(themeSettingsProvider).sourceColor;
     final colorScheme = color(Brightness.dark, targetColor);
 
     return ThemeData.dark(useMaterial3: true).copyWith(
@@ -45,15 +42,11 @@ class ThemeProvider {
     );
   }
 
-  ColorScheme color(Brightness brightness, Color? targetColor) {
-    final dynamicColors = ref.read(dynamicColorProvider);
-
-    final dynamicPrimary = brightness == Brightness.light
-        ? dynamicColors?.lightDynamic?.primary
-        : dynamicColors?.darkDynamic?.primary;
+  ColorScheme color(Brightness brightness, Color? dynamicPrimary) {
+    final settingsColor = ref.read(themeSettingsProvider).sourceColor;
 
     return ColorScheme.fromSeed(
-      seedColor: dynamicPrimary ?? sourceColor(targetColor),
+      seedColor: dynamicPrimary ?? sourceColor(settingsColor),
       brightness: brightness,
     );
   }

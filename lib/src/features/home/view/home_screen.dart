@@ -14,7 +14,6 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final playlists = ref.watch(playlistsProvider).randomPlaylists();
 
-    /// Mobile
     return LayoutBuilder(builder: (context, constraints) {
       /// Mobile
       if (constraints.isMobile) {
