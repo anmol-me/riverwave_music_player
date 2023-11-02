@@ -13,6 +13,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final playlists = ref.watch(playlistsProvider).randomPlaylists();
+    final textTheme = Theme.of(context).textTheme;
 
     return LayoutBuilder(builder: (context, constraints) {
       /// Mobile
@@ -44,7 +45,10 @@ class HomeScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
-                Container(),
+                HomeRecent(
+                  playlists: playlists,
+                  axis: Axis.vertical,
+                ),
                 Container(),
                 Container(),
               ],
@@ -60,14 +64,17 @@ class HomeScreen extends ConsumerWidget {
             children: [
               AdaptiveContainer(
                 columnSpan: 12,
-                child: const Padding(
-                  padding: EdgeInsets.fromLTRB(20, 25, 20, 10),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 25, 20, 10),
                   child: Row(
                     children: [
                       Expanded(
-                        child: Text('Good Morning'),
+                        child: Text(
+                          'Good Morning',
+                          style: textTheme.displaySmall,
+                        ),
                       ),
-                      BrightnessToggle(),
+                      const BrightnessToggle(),
                     ],
                   ),
                 ),
@@ -86,12 +93,15 @@ class HomeScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 15,
                         vertical: 10,
                       ),
-                      child: Text('Recently played'),
+                      child: Text(
+                        'Recently played',
+                        style: textTheme.headlineSmall,
+                      ),
                     ),
                     HomeRecent(playlists: playlists),
                   ],
