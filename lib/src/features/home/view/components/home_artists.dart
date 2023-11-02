@@ -16,28 +16,28 @@ class HomeArtists extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final constraints = ref.watch(constraintsProvider);
     final artists = ref.watch(artistProvider).artists;
 
     return Padding(
       padding: const EdgeInsets.all(15),
-      child: constraints!.isMobile
-          ?
+      child: LayoutBuilder(builder: (context, constraints) {
+        /// Mobile
+        if (constraints.isMobile) {
+          return Column(
+            children: [
+              for (final artist in artists) buildTile(context, artist!),
+            ],
+          );
+        }
 
-          /// Mobile
-          Column(
-              children: [
-                for (final artist in artists) buildTile(context, artist!),
-              ],
-            )
-
-          /// Desktop
-          : Row(
-              children: [
-                for (final artist in artists)
-                  Expanded(child: buildTile(context, artist!)),
-              ],
-            ),
+        /// Desktop
+        return Row(
+          children: [
+            for (final artist in artists)
+              Expanded(child: buildTile(context, artist!)),
+          ],
+        );
+      }),
     );
   }
 }

@@ -3,16 +3,11 @@ import 'package:audio_player/src/shared/router.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AppWidget extends ConsumerStatefulWidget {
+class AppWidget extends ConsumerWidget {
   const AppWidget({super.key});
 
   @override
-  ConsumerState createState() => _AppWidgetState();
-}
-
-class _AppWidgetState extends ConsumerState<AppWidget> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appRouterProvider);
     final theme = ref.watch(themeProvider);
     final themeSettings = ref.watch(themeSettingsProvider);
