@@ -1,3 +1,4 @@
+import 'package:audio_player/src/features/playlists/view/components/playlist_songs.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:adaptive_components/adaptive_components.dart';
@@ -12,7 +13,11 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final playlists = ref.watch(playlistsProvider).randomPlaylists();
+    final playlists = ref.watch(playlistsProvider);
+    final randomPlaylists = playlists.randomPlaylists();
+    final topSongs = playlists.topSongs;
+    final newReleases = playlists.newReleases;
+
     final textTheme = Theme.of(context).textTheme;
 
     return LayoutBuilder(builder: (context, constraints) {
@@ -46,11 +51,17 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
                 HomeRecent(
-                  playlists: playlists,
+                  playlists: randomPlaylists,
                   axis: Axis.vertical,
                 ),
-                Container(),
-                Container(),
+                PlaylistSongs(
+                  playlist: newReleases,
+                  constraints: constraints,
+                ),
+                PlaylistSongs(
+                  playlist: topSongs,
+                  constraints: constraints,
+                ),
               ],
             ),
           ),
@@ -103,8 +114,60 @@ class HomeScreen extends ConsumerWidget {
                         style: textTheme.headlineSmall,
                       ),
                     ),
-                    HomeRecent(playlists: playlists),
+                    HomeRecent(playlists: randomPlaylists),
                   ],
+                ),
+              ),
+              AdaptiveContainer(
+                columnSpan: 12,
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        flex: 10,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 8, bottom: 8),
+                              child: Text(
+                                'Top Songs Today',
+                                style: textTheme.titleLarge,
+                              ),
+                            ),
+                            PlaylistSongs(
+                              playlist: topSongs,
+                              constraints: constraints,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Flexible(
+                        flex: 10,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                              const EdgeInsets.only(left: 8, bottom: 8),
+                              child: Text(
+                                'New Releases',
+                                style: textTheme.titleLarge,
+                              ),
+                            ),
+                            PlaylistSongs(
+                              playlist: newReleases,
+                              constraints: constraints,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
