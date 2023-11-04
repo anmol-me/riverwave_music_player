@@ -1,12 +1,4 @@
-import 'package:audio_player/src/shared/providers/songs.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import './classes.dart';
-// import '../providers/providers.dart';
-
-final artistSongsProvider = Provider.family<List<RankedSong>, String>((ref, id) {
-  return ref.read(songsProvider).getSongs().where((song) => song.artist.id == id).toList();
-});
 
 class Artist {
   const Artist({
@@ -26,7 +18,4 @@ class Artist {
   final List<Event> events;
   final List<String> updates;
   final List<News> news;
-
-// List<RankedSong> get songs =>
-//     SongsProvider.shared.songs.where((song) => song.artist.id == id).toList();
 }

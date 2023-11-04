@@ -4,11 +4,6 @@ import './artists.dart';
 import '../classes/classes.dart';
 import '../extensions.dart';
 
-// class SongsProvider {
-//   static SongsProvider get shared => SongsProvider();
-//   List<RankedSong> get songs => _songs;
-// }
-
 final songsProvider = Provider((ref) {
   final artists = ref.watch(artistProvider);
   return Songs(artists);
@@ -140,7 +135,7 @@ class Songs {
           ),
         ];
 
-  List<RankedSong> getSongs() {
-    return _songs;
+  List<RankedSong> getSongsById(String id) {
+    return _songs.where((song) => song.artist.id == id).toList();
   }
 }

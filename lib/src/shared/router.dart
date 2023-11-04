@@ -1,4 +1,4 @@
-import 'package:audio_player/src/features/artists/view/artist_screen.dart';
+import 'package:audio_player/src/features/artists/view/artists_screen.dart';
 import 'package:audio_player/src/features/playlists/view/playlist_home_screen.dart';
 import 'package:audio_player/src/shared/views/root_layout.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ final appRouter = GoRouter(
         child: RootLayout(
           key: _scaffoldKey,
           currentIndex: 2,
-          child: ArtistScreen(),
+          child: ArtistsScreen(),
         ),
       ),
     ),
@@ -79,13 +79,11 @@ final List<NavigationDestination> destinations = [
   NavigationDestination(
     label: 'Playlists',
     icon: const Icon(Icons.playlist_add_check),
-    // route: '/playlists',
     path: '/playlists',
   ),
   NavigationDestination(
     label: 'Artists',
     icon: const Icon(Icons.people),
-    // route: '/artists',
     path: '/artists',
   ),
 ];
