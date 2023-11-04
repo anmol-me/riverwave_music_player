@@ -4,25 +4,17 @@ import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../classes/classes.dart';
 
-
-final artistListProvider = Provider((ref) => _artists);
-
-final artistProvider = Provider((ref) {
-  final artists = ref.watch(artistListProvider);
-  return ArtistProvider(ref, artists);
-});
+final artistProvider = Provider((_) => ArtistProvider());
 
 class ArtistProvider {
-  final Ref ref;
-  final List<Artist?> artists;
-
-  ArtistProvider(this.ref, this.artists);
+  List<Artist> getArtists() => _artists;
 
   Artist? getArtistById(String id) {
-    return artists.firstWhereOrNull((artist) => artist!.id == id);
+    return getArtists().firstWhereOrNull((artist) => artist.id == id);
   }
 
-  Artist getRandomArtist() => artists[Random().nextInt(artists.length)]!;
+  Artist getRandomArtist() =>
+      getArtists()[Random().nextInt(getArtists().length)];
 }
 
 List<Artist> _artists = const [
@@ -35,7 +27,7 @@ List<Artist> _artists = const [
       sourceName: 'Daniel Monteiro',
     ),
     bio:
-    'Jessie "JMo" Morrison is an American singer, actress, and dancer. The following year she won over America\'s hearts first appearing in the 2004 movie Unexpected Engagement. Soon after she released her debut album, Hopeful Romantics.',
+        'Jessie "JMo" Morrison is an American singer, actress, and dancer. The following year she won over America\'s hearts first appearing in the 2004 movie Unexpected Engagement. Soon after she released her debut album, Hopeful Romantics.',
     updates: [
       'So happy that everyone is loving the new music! It\'s been my pride and joy to work on and I\'m thrilled that you finally get to hear it!',
       'Happy Valentine\'s Day y\'all!!! I love each and every one of you 💋😘',
@@ -66,10 +58,10 @@ List<Artist> _artists = const [
     news: [
       News(
         title:
-        'Jessie Morrison a 26-stop cross country tour for the first time in 6 years.',
+            'Jessie Morrison a 26-stop cross country tour for the first time in 6 years.',
         author: 'By Jacqueline Stewart',
         blurb:
-        'Our favorite triple-threat Jessie Morrison is back, this time with a 26 stop tour across the country. She\'ll kick things off in Mountain View on January 20th, 2022 in Mountain View California with more stops being announced over the next few weeks...',
+            'Our favorite triple-threat Jessie Morrison is back, this time with a 26 stop tour across the country. She\'ll kick things off in Mountain View on January 20th, 2022 in Mountain View California with more stops being announced over the next few weeks...',
         image: MyArtistImage(
           image: 'assets/images/news/concert.jpeg',
           sourceLink: 'https://unsplash.com/photos/hzgs56Ze49s',
@@ -87,7 +79,7 @@ List<Artist> _artists = const [
       sourceName: 'Keagan Henman',
     ),
     bio:
-    'Lucas Bryant is an American country music singer and songwriter. He moved to Nashville at the age of 18 to pursue his country music career. With 34 awards to his name, he currently holds the record for most awards in country music.',
+        'Lucas Bryant is an American country music singer and songwriter. He moved to Nashville at the age of 18 to pursue his country music career. With 34 awards to his name, he currently holds the record for most awards in country music.',
     updates: [
       'Who\'s ready to party this weekend?! See you tomorrow, Nashville! #LBlive',
       'Can\'t wait to get back on stage after so long. What songs do you want to hear?',
@@ -118,10 +110,10 @@ List<Artist> _artists = const [
     news: [
       News(
         title:
-        'Country Music Favorites Lucas Bryant, Mariam Lubbock, Michelle Delaney and Jackson Murray Join Forces For The Biggest Performance in Country History.',
+            'Country Music Favorites Lucas Bryant, Mariam Lubbock, Michelle Delaney and Jackson Murray Join Forces For The Biggest Performance in Country History.',
         author: 'Lonnie Hall',
         blurb:
-        'Calling all country music fans! Fasten your seat belts because the 2022 Best of Country Awards is expecting a huge performance from some of our favorite artists. Country music legends Mariam Lubbock and Jackson Murray will be joined by Lucas Bryant and Michelle Delaney for a performance we\'ll never forget.',
+            'Calling all country music fans! Fasten your seat belts because the 2022 Best of Country Awards is expecting a huge performance from some of our favorite artists. Country music legends Mariam Lubbock and Jackson Murray will be joined by Lucas Bryant and Michelle Delaney for a performance we\'ll never forget.',
         image: MyArtistImage(
           image: 'assets/images/albums/artist1-album2.jpg',
           sourceLink: 'https://unsplash.com/photos/6etHcucBiRg',
@@ -139,7 +131,7 @@ List<Artist> _artists = const [
       sourceName: 'Natalie Runnerstrom',
     ),
     bio:
-    'Jon James is an American singer and songwriter. He\'s best known for his number one single "Never Going Back" which stayed atop the charts for 10 weeks.',
+        'Jon James is an American singer and songwriter. He\'s best known for his number one single "Never Going Back" which stayed atop the charts for 10 weeks.',
     updates: [
       '3. MORE. DAYS. Who\'s ready for #FallingForYou?! Tune in tomorrow to see the full track list!',
       '4 days until I get to share some of the favorite songs I\'ve ever written with you.',
@@ -170,10 +162,10 @@ List<Artist> _artists = const [
     news: [
       News(
         title:
-        'Jon James is excited for the release of his sixth album "Falling For You"',
+            'Jon James is excited for the release of his sixth album "Falling For You"',
         author: 'Top Media Today',
         blurb:
-        'Jon James will be dropping his new album "Falling For You" on Friday to much fan excitement. The 6-time Grammy winning artist has spent the last year writing and recording for this album that\'s been dubbed "his best work yet."',
+            'Jon James will be dropping his new album "Falling For You" on Friday to much fan excitement. The 6-time Grammy winning artist has spent the last year writing and recording for this album that\'s been dubbed "his best work yet."',
         image: MyArtistImage(
             image: 'assets/images/news/recording_studio.jpg',
             sourceLink: 'https://unsplash.com/photos/CbOGmLA46JI',
@@ -182,10 +174,3 @@ List<Artist> _artists = const [
     ],
   ),
 ];
-
-// 300 Veg
-// 180 - 130 Paneer
-// 50 Noodles
-// 100 Bread Crumbs
-// 40 Milk
-// 165 Curd 34 Icburg

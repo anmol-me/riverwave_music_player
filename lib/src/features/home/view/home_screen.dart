@@ -13,6 +13,8 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final artists = ref.watch(artistProvider).getArtists();
+
     final playlists = ref.watch(playlistsProvider);
     final randomPlaylists = playlists.randomPlaylists();
     final topSongs = playlists.topSongs;
@@ -42,11 +44,11 @@ class HomeScreen extends ConsumerWidget {
             ),
             body: TabBarView(
               children: [
-                const SingleChildScrollView(
+                SingleChildScrollView(
                   child: Column(
                     children: [
-                      HomeHighlights(),
-                      HomeArtists(),
+                      const HomeHighlights(),
+                      HomeArtists(artists: artists),
                     ],
                   ),
                 ),
@@ -92,10 +94,10 @@ class HomeScreen extends ConsumerWidget {
               ),
               AdaptiveContainer(
                 columnSpan: 12,
-                child: const Column(
+                child: Column(
                   children: [
-                    HomeHighlights(),
-                    HomeArtists(),
+                    const HomeHighlights(),
+                    HomeArtists(artists: artists),
                   ],
                 ),
               ),

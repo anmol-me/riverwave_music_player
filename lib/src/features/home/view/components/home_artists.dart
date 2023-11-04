@@ -2,21 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:audio_player/src/shared/providers/providers.dart';
 import 'package:audio_player/src/shared/classes/classes.dart';
 import 'package:audio_player/src/shared/extensions.dart';
 
 class HomeArtists extends ConsumerWidget {
   const HomeArtists({
     super.key,
-    // required this.constraints,
+    required this.artists,
   });
 
-  // final BoxConstraints constraints;
+  final List<Artist> artists;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final artists = ref.watch(artistProvider).artists;
 
     return Padding(
       padding: const EdgeInsets.all(15),
@@ -25,7 +23,7 @@ class HomeArtists extends ConsumerWidget {
         if (constraints.isMobile) {
           return Column(
             children: [
-              for (final artist in artists) buildTile(context, artist!),
+              for (final artist in artists) buildTile(context, artist),
             ],
           );
         }
@@ -34,7 +32,7 @@ class HomeArtists extends ConsumerWidget {
         return Row(
           children: [
             for (final artist in artists)
-              Expanded(child: buildTile(context, artist!)),
+              Expanded(child: buildTile(context, artist)),
           ],
         );
       }),
