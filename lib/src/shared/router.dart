@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../features/artists/view/components/artist_screen.dart';
 import '../features/home/view/home_screen.dart';
 
 const _pageKey = ValueKey('_pageKey');
@@ -51,6 +52,21 @@ final appRouter = GoRouter(
           child: ArtistsScreen(),
         ),
       ),
+      routes: [
+        GoRoute(
+          path: ':aid',
+          pageBuilder: (context, state) => MaterialPage<void>(
+            key: state.pageKey,
+            child: RootLayout(
+              key: _scaffoldKey,
+              currentIndex: 2,
+              child: ArtistScreen(
+                artistId: state.pathParameters['aid']!,
+              ),
+            ),
+          ),
+        ),
+      ],
     ),
 
     /// Automatically generates GoRoute for
