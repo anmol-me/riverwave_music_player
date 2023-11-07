@@ -9,3 +9,4 @@ export 'outlined_card.dart';
 export 'hover_toggle.dart';
 export 'hoverable_song_play_button.dart';
 export 'image_card.dart';
+export 'image_tile.dart';

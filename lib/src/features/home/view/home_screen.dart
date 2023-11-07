@@ -8,19 +8,19 @@ import 'package:audio_player/src/features/home/view/view.dart';
 import 'package:audio_player/src/shared/views/views.dart';
 import 'package:audio_player/src/shared/extensions.dart';
 
+import '../../../shared/classes/classes.dart';
+
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final artists = ref.watch(artistProvider).getArtists();
-
-    final playlists = ref.watch(playlistsProvider);
-    final randomPlaylists = playlists.randomPlaylists();
-    final topSongs = playlists.topSongs;
-    final newReleases = playlists.newReleases;
-
     final textTheme = Theme.of(context).textTheme;
+
+    final artists = ref.read(artistProvider).getArtists();
+    final topSongs = ref.read(topSongsProvider);
+    final newReleases = ref.read(newReleasesProvider);
+    final randomPlaylists = ref.read(randomPlaylistProvider);
 
     return LayoutBuilder(builder: (context, constraints) {
       /// Mobile
@@ -155,7 +155,7 @@ class HomeScreen extends ConsumerWidget {
                           children: [
                             Padding(
                               padding:
-                              const EdgeInsets.only(left: 8, bottom: 8),
+                                  const EdgeInsets.only(left: 8, bottom: 8),
                               child: Text(
                                 'New Releases',
                                 style: textTheme.titleLarge,

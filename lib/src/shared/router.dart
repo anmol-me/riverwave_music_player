@@ -1,5 +1,6 @@
 import 'package:audio_player/src/features/artists/view/artists_screen.dart';
 import 'package:audio_player/src/features/playlists/view/playlist_home_screen.dart';
+import 'package:audio_player/src/shared/providers/providers.dart';
 import 'package:audio_player/src/shared/views/root_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../features/artists/view/components/artist_screen.dart';
 import '../features/home/view/home_screen.dart';
+import '../features/playlists/view/playlist_screen.dart';
 
 const _pageKey = ValueKey('_pageKey');
 const _scaffoldKey = ValueKey('_scaffoldKey');
@@ -39,6 +41,30 @@ final appRouter = GoRouter(
           child: PlaylistHomeScreen(),
         ),
       ),
+      routes: [
+        GoRoute(
+          path: ':pid',
+          pageBuilder: (context, state) {
+            return MaterialPage<void>(
+              key: state.pageKey,
+              child: Consumer(
+                builder: (context, ref, child) {
+                  final playlist = ref
+                      .read(playlistByIdProvider(state.pathParameters['pid']!));
+
+                  return RootLayout(
+                    key: _scaffoldKey,
+                    currentIndex: 1,
+                    child: PlaylistScreen(
+                      playlist: playlist!,
+                    ),
+                  );
+                },
+              ),
+            );
+          },
+        ),
+      ],
     ),
 
     // ArtistsScreen
@@ -60,8 +86,14 @@ final appRouter = GoRouter(
             child: RootLayout(
               key: _scaffoldKey,
               currentIndex: 2,
-              child: ArtistScreen(
-                artistId: state.pathParameters['aid']!,
+              child: Consumer(
+                builder: (context, ref, child) {
+                  final artist = ref.read(artistProvider).getArtistById(state.pathParameters['aid']!);
+
+                  return ArtistScreen(
+                    artist: artist!,
+                  );
+                }
               ),
             ),
           ),

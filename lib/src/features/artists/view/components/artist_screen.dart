@@ -1,5 +1,5 @@
 import 'package:audio_player/src/features/artists/view/components/artist_ranked_songs.dart';
-import 'package:audio_player/src/shared/providers/artists.dart';
+import 'package:audio_player/src/shared/classes/artist.dart';
 import 'package:audio_player/src/shared/views/article_content.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -12,15 +12,13 @@ import 'artist_news.dart';
 class ArtistScreen extends ConsumerWidget {
   const ArtistScreen({
     super.key,
-    required this.artistId,
+    required this.artist,
   });
 
-  final String artistId;
+  final Artist artist;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final artist = ref.watch(artistProvider).getArtistById(artistId);
-
     return LayoutBuilder(
       builder: (context, constraints) {
         final colors = Theme.of(context).colorScheme;
@@ -35,7 +33,7 @@ class ArtistScreen extends ConsumerWidget {
               leading: BackButton(
                 onPressed: () => GoRouter.of(context).go('/artists'),
               ),
-              title: Text('ARTIST - ${artist?.name}'),
+              title: Text('ARTIST - ${artist.name}'),
               bottom: PreferredSize(
                 preferredSize: Size.fromHeight(kToolbarHeight + headerHeight),
                 child: Column(
@@ -52,7 +50,7 @@ class ArtistScreen extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   ClippedImage(
-                                    artist!.image.image,
+                                    artist.image.image,
                                     fit: BoxFit.cover,
                                   ),
                                   Expanded(
@@ -82,7 +80,7 @@ class ArtistScreen extends ConsumerWidget {
                                 SizedBox(
                                   height: 300,
                                   child: ClippedImage(
-                                    artist!.image.image,
+                                    artist.image.image,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -119,7 +117,7 @@ class ArtistScreen extends ConsumerWidget {
             body: TabBarView(
               children: [
                 SingleChildScrollView(
-                  child: ArtistRankedSongs(artist: artist!),
+                  child: ArtistRankedSongs(artist: artist),
                 ),
                 SingleChildScrollView(child: ArtistEvents(artist: artist)),
                 SingleChildScrollView(child: ArtistNews(artist: artist)),

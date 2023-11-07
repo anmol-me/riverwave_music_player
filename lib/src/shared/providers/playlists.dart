@@ -7,6 +7,27 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../classes/classes.dart';
 import '../extensions.dart';
 
+final randomPlaylistProvider = Provider((ref) {
+  final playlists = ref.watch(playlistsProvider);
+  final list = List.generate(10, (index) => playlists.randomLengthPlaylist());
+  return list;
+});
+
+final playlistByIdProvider = Provider.family<Playlist?, String>((ref, id) {
+  final list = ref.watch(randomPlaylistProvider);
+  return list.firstWhereOrNull((playlist) => playlist.id == id);
+});
+
+final topSongsProvider = Provider<Playlist>((ref) {
+  final list = ref.watch(playlistsProvider);
+  return list.randomPlaylist(numSongs: 10);
+});
+
+final newReleasesProvider = Provider<Playlist>((ref) {
+  final list = ref.watch(playlistsProvider);
+  return list.randomPlaylist(numSongs: 10);
+});
+
 final playlistsProvider = Provider((ref) => PlaylistsProvider(ref));
 
 class PlaylistsProvider {
@@ -14,9 +35,9 @@ class PlaylistsProvider {
 
   PlaylistsProvider(this.ref);
 
-  Playlist get newReleases => randomPlaylist(numSongs: 10);
-
-  Playlist get topSongs => randomPlaylist(numSongs: 10);
+  // Playlist get newReleases => randomPlaylist(numSongs: 10);
+  //
+  // Playlist get topSongs => randomPlaylist(numSongs: 10);
 
   Playlist randomLengthPlaylist({int maxSongs = 15}) {
     final int songCount = Random().nextInt(maxSongs) + 1;
@@ -24,9 +45,9 @@ class PlaylistsProvider {
     return randomPlaylist(numSongs: songCount);
   }
 
-  List<Playlist> randomPlaylists() {
-    return List.generate(10, (index) => randomLengthPlaylist());
-  }
+  // List<Playlist> randomPlaylists() {
+  //   return List.generate(10, (index) => randomLengthPlaylist());
+  // }
 
   Playlist randomPlaylist({int numSongs = 15}) {
     return Playlist(
@@ -47,9 +68,9 @@ class PlaylistsProvider {
     );
   }
 
-  Playlist? getPlaylist(String id) {
-    return randomPlaylists().firstWhereOrNull((playlist) => playlist.id == id);
-  }
+  // Playlist? getPlaylist(String id) {
+  //   return randomPlaylists().firstWhereOrNull((playlist) => playlist.id == id);
+  // }
 
   List<MyArtistImage> images() {
     return [

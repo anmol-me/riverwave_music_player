@@ -15,7 +15,7 @@ class ArtistsScreen extends ConsumerWidget {
 
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
-        // primary: false,
+        primary: false,
         appBar: AppBar(
           title: const Text('ARTISTS'),
           toolbarHeight: kToolbarHeight * 2,
