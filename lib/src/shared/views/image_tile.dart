@@ -1,3 +1,4 @@
+import 'package:audio_player/src/shared/extensions.dart';
 import 'package:flutter/material.dart';
 
 import 'outlined_card.dart';
@@ -16,7 +17,6 @@ class ImageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
 
     return OutlinedCard(
       child: Column(
@@ -38,7 +38,7 @@ class ImageTile extends StatelessWidget {
                   child: Text(
                     title,
                     textAlign: TextAlign.center,
-                    style: textTheme.titleSmall!.copyWith(
+                    style: context.titleSmall!.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                     overflow: TextOverflow.ellipsis,
@@ -50,7 +50,7 @@ class ImageTile extends StatelessWidget {
                 child: Text(
                   subtitle,
                   overflow: TextOverflow.ellipsis,
-                  style: textTheme.labelSmall,
+                  style: context.labelSmall,
                   maxLines: 2,
                   textAlign: TextAlign.center,
                 ),

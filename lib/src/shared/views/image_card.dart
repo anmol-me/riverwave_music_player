@@ -1,3 +1,4 @@
+import 'package:audio_player/src/shared/extensions.dart';
 import 'package:flutter/material.dart';
 
 import 'outlined_card.dart';
@@ -20,7 +21,6 @@ class ImageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     const padding = EdgeInsets.all(8.0);
 
     return OutlinedCard(
@@ -49,7 +49,7 @@ class ImageCard extends StatelessWidget {
                         padding: const EdgeInsets.only(bottom: 5),
                         child: Text(
                           title,
-                          style: textTheme.titleLarge!
+                          style: context.titleLarge!
                               .copyWith(fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -58,12 +58,12 @@ class ImageCard extends StatelessWidget {
                           padding: const EdgeInsets.only(bottom: 10),
                           child: Text(
                             subtitle!,
-                            style: textTheme.labelMedium,
+                            style: context.labelMedium,
                           ),
                         ),
                       Text(
                         details,
-                        style: textTheme.labelMedium?.copyWith(
+                        style: context.labelMedium?.copyWith(
                           fontSize: 16,
                           height: 1.25,
                         ),

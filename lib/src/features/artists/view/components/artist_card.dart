@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:audio_player/src/shared/classes/classes.dart';
+import 'package:audio_player/src/shared/extensions.dart';
 import 'package:audio_player/src/shared/providers/providers.dart';
 import 'package:audio_player/src/shared/views/outlined_card.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +21,6 @@ class ArtistCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final song = ref.watch(songsProvider).getSongsById(artist.id);
     final nowPlaying = song[Random().nextInt(song.length)];
-
-    final textTheme = Theme.of(context).textTheme;
 
     return OutlinedCard(
       child: LayoutBuilder(
@@ -44,7 +43,7 @@ class ArtistCard extends ConsumerWidget {
                     children: [
                       Text(
                         artist.name,
-                        style: textTheme.titleMedium,
+                        style: context.titleMedium,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
@@ -52,7 +51,7 @@ class ArtistCard extends ConsumerWidget {
                       Text(
                         artist.bio,
                         overflow: TextOverflow.ellipsis,
-                        style: textTheme.labelSmall,
+                        style: context.labelSmall,
                         maxLines: 3,
                       ),
                       if (dimens.maxHeight > 100)
@@ -69,7 +68,7 @@ class ArtistCard extends ConsumerWidget {
                               nowPlaying.title,
                               maxLines: 1,
                               overflow: TextOverflow.clip,
-                              style: textTheme.labelMedium,
+                              style: context.labelMedium,
                             ),
                           ],
                         ),

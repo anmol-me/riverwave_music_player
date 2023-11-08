@@ -41,7 +41,7 @@ class HomeArtists extends ConsumerWidget {
 }
 
 Widget buildTile(BuildContext context, Artist artist) {
-  final theme = Theme.of(context).textTheme;
+  final theme = context.theme.textTheme;
 
   return ListTile(
     leading: CircleAvatar(

@@ -1,8 +1,9 @@
+import 'package:audio_player/src/shared/extensions.dart';
 import 'package:audio_player/src/shared/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../shared/classes/classes.dart';
+import 'package:audio_player/src/shared/classes/classes.dart';
 
 class HomeRecent extends ConsumerWidget {
   const HomeRecent({
@@ -100,7 +101,7 @@ Widget buildDetails(BuildContext context, Playlist playlist) {
         padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
         child: Text(
           playlist.title,
-          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+          style: context.theme.textTheme.titleSmall!.copyWith(
                 fontWeight: FontWeight.bold,
               ),
           overflow: TextOverflow.ellipsis,
@@ -113,7 +114,7 @@ Widget buildDetails(BuildContext context, Playlist playlist) {
         child: Text(
           playlist.description,
           overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.labelSmall,
+          style: context.theme.textTheme.labelSmall,
           maxLines: 2,
           textAlign: TextAlign.center,
         ),

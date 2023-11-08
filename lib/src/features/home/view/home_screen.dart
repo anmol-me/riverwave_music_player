@@ -8,14 +8,12 @@ import 'package:audio_player/src/features/home/view/view.dart';
 import 'package:audio_player/src/shared/views/views.dart';
 import 'package:audio_player/src/shared/extensions.dart';
 
-import '../../../shared/classes/classes.dart';
-
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final textTheme = Theme.of(context).textTheme;
+    final textTheme = context.theme.textTheme;
 
     final artists = ref.read(artistProvider).getArtists();
     final topSongs = ref.read(topSongsProvider);

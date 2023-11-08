@@ -1,11 +1,12 @@
 import 'package:audio_player/src/features/artists/view/components/artist_ranked_songs.dart';
 import 'package:audio_player/src/shared/classes/artist.dart';
+import 'package:audio_player/src/shared/extensions.dart';
 import 'package:audio_player/src/shared/views/article_content.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../shared/views/clipped_image.dart';
+import 'package:audio_player/src/shared/views/clipped_image.dart';
 import 'artist_events.dart';
 import 'artist_news.dart';
 
@@ -22,7 +23,6 @@ class ArtistScreen extends ConsumerWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final colors = Theme.of(context).colorScheme;
-        final textTheme = Theme.of(context).textTheme;
 
         double headerHeight = constraints.maxWidth > 500 ? 300 : 400;
 
@@ -58,7 +58,7 @@ class ArtistScreen extends ConsumerWidget {
                                       padding: const EdgeInsets.all(12),
                                       child: Text(
                                         artist.bio,
-                                        style: textTheme.bodyLarge!.copyWith(
+                                        style: context.bodyLarge!.copyWith(
                                           color: colors.onSurface,
                                           fontSize: 16,
                                         ),
@@ -89,7 +89,7 @@ class ArtistScreen extends ConsumerWidget {
                                     padding: const EdgeInsets.all(12),
                                     child: Text(
                                       artist.bio,
-                                      style: textTheme.bodyLarge!.copyWith(
+                                      style: context.bodyLarge!.copyWith(
                                         color: colors.onSurface,
                                         fontSize: 16,
                                       ),
