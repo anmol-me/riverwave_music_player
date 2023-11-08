@@ -1,14 +1,11 @@
-import 'package:audio_player/src/features/artists/view/components/artist_ranked_songs.dart';
-import 'package:audio_player/src/shared/classes/artist.dart';
-import 'package:audio_player/src/shared/extensions.dart';
-import 'package:audio_player/src/shared/views/article_content.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:audio_player/src/shared/views/clipped_image.dart';
-import 'artist_events.dart';
-import 'artist_news.dart';
+import 'package:audio_player/src/features/artists/view/view.dart';
+import 'package:audio_player/src/shared/classes/classes.dart';
+import 'package:audio_player/src/shared/extensions.dart';
+import 'package:audio_player/src/shared/views/views.dart';
 
 class ArtistScreen extends ConsumerWidget {
   const ArtistScreen({
@@ -27,7 +24,7 @@ class ArtistScreen extends ConsumerWidget {
         double headerHeight = constraints.maxWidth > 500 ? 300 : 400;
 
         return DefaultTabController(
-          length: 3,
+          length: 4,
           child: Scaffold(
             appBar: AppBar(
               leading: BackButton(
@@ -56,14 +53,7 @@ class ArtistScreen extends ConsumerWidget {
                                   Expanded(
                                     child: Padding(
                                       padding: const EdgeInsets.all(12),
-                                      child: Text(
-                                        artist.bio,
-                                        style: context.bodyLarge!.copyWith(
-                                          color: colors.onSurface,
-                                          fontSize: 16,
-                                        ),
-                                        textAlign: TextAlign.justify,
-                                      ),
+                                      child: ArtistBio(artist: artist),
                                     ),
                                   ),
                                 ],
@@ -108,6 +98,7 @@ class ArtistScreen extends ConsumerWidget {
                         Tab(text: 'Songs'),
                         Tab(text: 'Events'),
                         Tab(text: 'News'),
+                        Tab(text: 'Updates'),
                       ],
                     ),
                   ],
@@ -116,11 +107,10 @@ class ArtistScreen extends ConsumerWidget {
             ),
             body: TabBarView(
               children: [
-                SingleChildScrollView(
-                  child: ArtistRankedSongs(artist: artist),
-                ),
+                SingleChildScrollView(child: ArtistRankedSongs(artist: artist)),
                 SingleChildScrollView(child: ArtistEvents(artist: artist)),
                 SingleChildScrollView(child: ArtistNews(artist: artist)),
+                SingleChildScrollView(child: ArtistUpdates(artist: artist)),
               ],
             ),
           ),

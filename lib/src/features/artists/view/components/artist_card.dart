@@ -1,13 +1,12 @@
 import 'dart:math';
 
-import 'package:audio_player/src/shared/classes/classes.dart';
-import 'package:audio_player/src/shared/extensions.dart';
-import 'package:audio_player/src/shared/providers/providers.dart';
-import 'package:audio_player/src/shared/views/outlined_card.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../shared/views/hoverable_song_play_button.dart';
+import 'package:audio_player/src/shared/classes/classes.dart';
+import 'package:audio_player/src/shared/extensions.dart';
+import 'package:audio_player/src/shared/providers/providers.dart';
+import 'package:audio_player/src/shared/views/views.dart';
 
 class ArtistCard extends ConsumerWidget {
   const ArtistCard({
