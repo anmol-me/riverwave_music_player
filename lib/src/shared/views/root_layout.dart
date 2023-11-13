@@ -1,4 +1,6 @@
+import 'package:audio_player/src/shared/playback/playback_notifier.dart';
 import 'package:audio_player/src/shared/views/adaptive_navigation.dart';
+import 'package:audio_player/src/shared/views/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,6 +23,8 @@ class RootLayout extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final current = ref.watch(playbackProvider).songWithProgress;
+    
     onSelected(int index) {
       final destination = router.destinations[index];
 
@@ -39,9 +43,16 @@ class RootLayout extends ConsumerWidget {
           .toList(),
       selectedIndex: currentIndex,
       onDestinationSelected: onSelected,
-      child: _Switcher(
-        key: _switcherKey,
-        child: child,
+      child: Column(
+        children: [
+          Expanded(
+            child: _Switcher(
+              key: _switcherKey,
+              child: child,
+            ),
+          ),
+          if (current != null) const BottomBar(),
+        ],
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:audio_player/src/shared/extensions.dart';
+import 'package:audio_player/src/shared/playback/playback_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -27,7 +28,9 @@ class ArtistRankedSongs extends ConsumerWidget {
           title: Text(song.title),
           subtitle: Text(song.length.toHumanizedString()),
           trailing: Text(song.ranking.toString()),
-          onTap: () {},
+          onTap: () {
+            ref.read(playbackProvider.notifier).changeSong(song);
+          },
         );
       },
       columns: const [
