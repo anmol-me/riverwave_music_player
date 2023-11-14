@@ -4,8 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:audio_player/src/shared/classes/classes.dart';
 import 'package:audio_player/src/shared/classes/playback_state.dart';
 
-final playbackProvider =
-    NotifierProvider<PlaybackNotifier, PlaybackState>(() {
+final playbackProvider = NotifierProvider<PlaybackNotifier, PlaybackState>(() {
   return PlaybackNotifier();
 });
 
@@ -54,7 +53,7 @@ class PlaybackNotifier extends Notifier<PlaybackState> {
     final targetMilliseconds =
         state.songWithProgress!.song.length.inMilliseconds * percent;
 
-    state.copyWith(
+    state = state.copyWith(
       isPlaying: false,
       songWithProgress: state.songWithProgress!.copyWith(
         progress: Duration(milliseconds: targetMilliseconds.toInt()),
@@ -73,9 +72,7 @@ class PlaybackNotifier extends Notifier<PlaybackState> {
     state = state.copyWith(isPlaying: !state.isPlaying);
   }
 
-  void _pausePlayback() {
-    _playbackTimer?.cancel();
-  }
+  void _pausePlayback() => _playbackTimer?.cancel();
 
   void _resumePlayback() {
     _playbackTimer = Timer.periodic(const Duration(seconds: 1), (timer) {

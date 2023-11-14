@@ -1,9 +1,14 @@
+import 'dart:async';
+
+import 'package:audio_player/src/shared/providers/theme.dart';
+import 'package:audio_player/src/shared/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:audio_player/src/shared/playback/playback_notifier.dart';
 import 'package:audio_player/src/shared/extensions.dart';
 import '../classes/classes.dart';
+import '../classes/playback_state.dart';
 
 class BottomBar extends ConsumerWidget implements PreferredSizeWidget {
   const BottomBar({super.key});
@@ -159,23 +164,32 @@ class _BottomBar extends ConsumerWidget {
               _VolumeBar(volume: volume, isMuted: isMuted),
             ],
             if (song != null)
-              IconButton(
-                icon: const Icon(Icons.fullscreen),
-                onPressed: () {
-                  final overlay = Overlay.of(context);
-                  OverlayEntry? entry;
-                  entry = OverlayEntry(
-                    builder: (context) => Stack(
-                      children: [
-                        Positioned(
-                          child: Container(),
-                        ),
-                      ],
-                    ),
-                  );
-                  overlay.insert(entry);
-                },
-              ),
+              Consumer(builder: (context, ref, child) {
+                final showControlsNotifier =
+                    ref.read(showControlsProvider.notifier);
+                return IconButton(
+                  icon: const Icon(Icons.fullscreen),
+                  onPressed: () {
+                    showControlsNotifier.update((state) => true);
+                    final overlay = Overlay.of(context);
+                    OverlayEntry? entry;
+                    entry = OverlayEntry(
+                      builder: (context) => Stack(
+                        children: [
+                          Positioned(
+                            child: _FullScreenPlayer(
+                              onClose: () {
+                                entry?.remove();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                    overlay.insert(entry);
+                  },
+                );
+              }),
           ],
         ),
       ),
@@ -422,6 +436,156 @@ class _VolumeBar extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+final showControlsProvider = StateProvider((ref) => true);
+
+class _FullScreenPlayer extends ConsumerWidget {
+  const _FullScreenPlayer({required this.onClose});
+
+  final VoidCallback onClose;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    Timer? controlsTimer;
+
+    final showControls = ref.watch(showControlsProvider);
+    final showControlsNotifier = ref.watch(showControlsProvider.notifier);
+    final playbackState = ref.watch(playbackProvider);
+
+    void hideControls() {
+      controlsTimer?.cancel();
+      controlsTimer = Timer(const Duration(seconds: 3), () {
+        showControlsNotifier.update((state) => false);
+      });
+    }
+
+    return Theme(
+      data: ref.read(themeProvider).dark(),
+      child: Scaffold(
+        body: LayoutBuilder(
+          builder: (context, dimens) {
+            return MouseRegion(
+              onHover: (_) {
+                showControlsNotifier.update((state) => true);
+                hideControls();
+              },
+              child: buildPlayer(
+                  context, ref, playbackState, showControls, dimens),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget buildPlayer(
+    BuildContext context,
+    WidgetRef ref,
+    PlaybackState playbackState,
+    bool showControls,
+    BoxConstraints dimens,
+  ) {
+    final playbackNotifier = ref.read(playbackProvider.notifier);
+
+    final current = playbackState.songWithProgress;
+    final song = current?.song;
+
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Positioned.fill(
+          child: current == null
+              ? const Center(child: Text('No song selected'))
+              : Container(
+                  color: context.colors.shadow,
+                  child: Opacity(
+                    opacity: 0.3,
+                    child: Image.asset(
+                      song!.image.image,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+        ),
+        Positioned(
+          top: 20,
+          right: 20,
+          child: IconButton(
+            color: song != null
+                ? context.colors.onSurface
+                : context.colors.onBackground,
+            icon: const Icon(Icons.fullscreen_exit),
+            onPressed: () {
+              onClose();
+              ref.read(showControlsProvider.notifier).update((state) => true);
+            },
+          ),
+        ),
+        if (song != null) ...[
+          Positioned(
+            left: 60,
+            bottom: dimens.biggest.height * 0.28,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                SizedBox(
+                  width: dimens.biggest.height * 0.2,
+                  child: ClippedImage(song.image.image),
+                ),
+                const SizedBox(width: 20),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      song.title,
+                      style: context.labelLarge!.copyWith(fontSize: 42),
+                      overflow: TextOverflow.clip,
+                      maxLines: 1,
+                    ),
+                    Text(
+                      song.artist.name,
+                      style: context.labelSmall!.copyWith(
+                          fontSize: 20,
+                          color: context.colors.onSurface.withOpacity(0.8)),
+                      overflow: TextOverflow.clip,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            right: 20,
+            left: 20,
+            bottom: dimens.biggest.height * 0.2,
+            child: _ProgressBar(
+              progress: current?.progress,
+              song: song,
+            ),
+          ),
+          Positioned(
+            right: 20,
+            left: 20,
+            bottom: dimens.biggest.height * 0.1,
+            child: AnimatedOpacity(
+              duration: kThemeAnimationDuration,
+              opacity: showControls ? 1 : 0,
+              child: Transform.scale(
+                scale: 1.5,
+                child: _PlaybackControls(
+                  isPlaying: playbackState.isPlaying,
+                  togglePlayPause: () => playbackNotifier.togglePlayPause(),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ],
     );
   }
 }
