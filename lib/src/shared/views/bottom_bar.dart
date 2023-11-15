@@ -71,7 +71,24 @@ class _BottomBar extends ConsumerWidget {
         height: kToolbarHeight,
         child: InkWell(
           mouseCursor: SystemMouseCursors.click,
-          onTap: () {},
+          onTap: () {
+            final overlay = Overlay.of(context);
+            OverlayEntry? entry;
+            entry = OverlayEntry(
+              builder: (context) => Stack(
+                children: [
+                  Positioned(
+                    child: _MobilePlayer(
+                      onClose: () {
+                        entry?.remove();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+            overlay.insert(entry);
+          },
           child: Stack(
             children: [
               Positioned(
@@ -582,6 +599,134 @@ class _FullScreenPlayer extends ConsumerWidget {
                   togglePlayPause: () => playbackNotifier.togglePlayPause(),
                 ),
               ),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class _MobilePlayer extends ConsumerWidget {
+  const _MobilePlayer({
+    required this.onClose,
+  });
+
+  final VoidCallback onClose;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final playbackState = ref.watch(playbackProvider);
+
+    return Theme(
+      data: ref.read(themeProvider).dark(),
+      child: Scaffold(
+        body: LayoutBuilder(
+          builder: (context, dimens) {
+            return buildPlayer(context, ref, playbackState, dimens);
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget buildPlayer(
+    BuildContext context,
+    WidgetRef ref,
+    PlaybackState playbackState,
+    BoxConstraints dimens,
+  ) {
+    final playbackNotifier = ref.read(playbackProvider.notifier);
+
+    final current = playbackState.songWithProgress;
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: current == null
+              ? const Center(child: Text('No song selected'))
+              : Container(
+                  color: context.colors.shadow,
+                  child: Opacity(
+                    opacity: 0.3,
+                    child: Image.asset(
+                      current.song.image.image,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+        ),
+        Positioned(
+          top: 20,
+          left: 20,
+          child: IconButton(
+            color: current?.song != null
+                ? context.colors.onSurface
+                : context.colors.onBackground,
+            icon: const RotatedBox(
+              quarterTurns: 1,
+              child: Icon(Icons.chevron_right),
+            ),
+            onPressed: onClose,
+          ),
+        ),
+        if (current != null) ...[
+          if (dimens.biggest.height > 500)
+            Positioned(
+              top: kToolbarHeight,
+              left: 0,
+              right: 0,
+              height: dimens.biggest.height * 0.5,
+              child: Image.asset(
+                current.song.image.image,
+                fit: BoxFit.contain,
+              ),
+            ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: dimens.biggest.height * 0.1,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        current.song.title,
+                        style: context.labelLarge!.copyWith(fontSize: 22),
+                        overflow: TextOverflow.clip,
+                        maxLines: 1,
+                      ),
+                      Text(
+                        current.song.artist.name,
+                        style: context.labelSmall!.copyWith(
+                            fontSize: 12,
+                            color: context.colors.onSurface.withOpacity(0.8)),
+                        overflow: TextOverflow.clip,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Transform.scale(
+                    scale: 1.5,
+                    child: _PlaybackControls(
+                      isPlaying: playbackState.isPlaying,
+                      togglePlayPause: () => playbackNotifier.togglePlayPause(),
+                    ),
+                  ),
+                ),
+                _ProgressBar(
+                  progress: current.progress,
+                  song: current.song,
+                ),
+              ],
             ),
           ),
         ],
