@@ -35,19 +35,11 @@ class PlaylistsProvider {
 
   PlaylistsProvider(this.ref);
 
-  // Playlist get newReleases => randomPlaylist(numSongs: 10);
-  //
-  // Playlist get topSongs => randomPlaylist(numSongs: 10);
-
   Playlist randomLengthPlaylist({int maxSongs = 15}) {
     final int songCount = Random().nextInt(maxSongs) + 1;
 
     return randomPlaylist(numSongs: songCount);
   }
-
-  // List<Playlist> randomPlaylists() {
-  //   return List.generate(10, (index) => randomLengthPlaylist());
-  // }
 
   Playlist randomPlaylist({int numSongs = 15}) {
     return Playlist(
@@ -67,10 +59,6 @@ class PlaylistsProvider {
       images()[Random().nextInt(images().length)],
     );
   }
-
-  // Playlist? getPlaylist(String id) {
-  //   return randomPlaylists().firstWhereOrNull((playlist) => playlist.id == id);
-  // }
 
   List<MyArtistImage> images() {
     return [
