@@ -17,6 +17,7 @@ class AppWidget extends ConsumerWidget {
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) {
         return MaterialApp.router(
+          title: "RiverWave Music Player",
           debugShowCheckedModeBanner: false,
           routerConfig: router,
           theme: theme.light(lightDynamic?.primary),
