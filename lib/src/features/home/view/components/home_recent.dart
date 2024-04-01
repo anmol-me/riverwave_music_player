@@ -1,9 +1,9 @@
-import 'package:audio_player/src/shared/extensions.dart';
-import 'package:audio_player/src/shared/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:audio_player/src/shared/classes/classes.dart';
+import '/src/shared/extensions.dart';
+import '/src/shared/views/views.dart';
+import '/src/shared/classes/classes.dart';
 
 class HomeRecent extends ConsumerWidget {
   const HomeRecent({

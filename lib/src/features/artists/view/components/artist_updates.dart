@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:audio_player/src/shared/classes/classes.dart';
-import 'package:audio_player/src/shared/views/views.dart';
+import '/src/shared/classes/classes.dart';
+import '/src/shared/views/views.dart';
 
 class ArtistUpdates extends StatelessWidget {
   const ArtistUpdates({super.key, required this.artist});

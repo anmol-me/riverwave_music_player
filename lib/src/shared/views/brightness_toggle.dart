@@ -1,6 +1,6 @@
-import 'package:audio_player/src/shared/providers/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '/src/shared/providers/theme.dart';
 
 class BrightnessToggle extends ConsumerWidget {
   const BrightnessToggle({super.key});

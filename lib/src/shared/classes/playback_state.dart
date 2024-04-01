@@ -1,4 +1,4 @@
-import 'package:audio_player/src/shared/classes/song.dart';
+import '/src/shared/classes/song.dart';
 
 class PlaybackState {
   final double volume;

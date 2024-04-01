@@ -1,12 +1,12 @@
-import 'package:audio_player/src/features/playlists/view/components/playlist_songs.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:adaptive_components/adaptive_components.dart';
 
-import 'package:audio_player/src/shared/providers/providers.dart';
-import 'package:audio_player/src/features/home/view/view.dart';
-import 'package:audio_player/src/shared/views/views.dart';
-import 'package:audio_player/src/shared/extensions.dart';
+import '/src/features/home/view/view.dart';
+import '/src/features/playlists/view/components/playlist_songs.dart';
+import '/src/shared/providers/providers.dart';
+import '/src/shared/views/views.dart';
+import '/src/shared/extensions.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});

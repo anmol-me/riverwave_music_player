@@ -1,6 +1,6 @@
-import 'package:audio_player/src/shared/extensions.dart';
 import 'package:flutter/material.dart';
 
+import '/src/shared/extensions.dart';
 import 'outlined_card.dart';
 
 class ImageTile extends StatelessWidget {

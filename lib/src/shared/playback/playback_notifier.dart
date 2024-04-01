@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:audio_player/src/shared/classes/classes.dart';
-import 'package:audio_player/src/shared/classes/playback_state.dart';
+import '/src/shared/classes/classes.dart';
+import '/src/shared/classes/playback_state.dart';
 
 final playbackProvider = NotifierProvider<PlaybackNotifier, PlaybackState>(() {
   return PlaybackNotifier();

@@ -1,14 +1,14 @@
-import 'package:audio_player/src/features/artists/view/artists_screen.dart';
-import 'package:audio_player/src/features/playlists/view/playlist_home_screen.dart';
-import 'package:audio_player/src/shared/providers/providers.dart';
-import 'package:audio_player/src/shared/views/root_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../features/artists/view/components/artist_screen.dart';
-import '../features/home/view/home_screen.dart';
-import '../features/playlists/view/playlist_screen.dart';
+import '/src/features/artists/view/artists_screen.dart';
+import '/src/features/playlists/view/playlist_home_screen.dart';
+import '/src/features/artists/view/components/artist_screen.dart';
+import '/src/features/home/view/home_screen.dart';
+import '/src/features/playlists/view/playlist_screen.dart';
+import '/src/shared/providers/providers.dart';
+import '/src/shared/views/root_layout.dart';
 
 const _pageKey = ValueKey('_pageKey');
 const _scaffoldKey = ValueKey('_scaffoldKey');

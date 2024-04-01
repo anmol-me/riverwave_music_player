@@ -1,9 +1,9 @@
-import 'package:audio_player/src/shared/providers/playlists.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../shared/views/views.dart';
+import '/src/shared/providers/playlists.dart';
+import '/src/shared/views/views.dart';
 
 class PlaylistHomeScreen extends ConsumerWidget {
   const PlaylistHomeScreen({super.key});

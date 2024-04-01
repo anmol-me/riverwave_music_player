@@ -1,11 +1,11 @@
 import 'dart:math';
-import 'package:audio_player/src/shared/providers/artists.dart';
 import 'package:collection/collection.dart';
 import 'package:english_words/english_words.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../classes/classes.dart';
-import '../extensions.dart';
+import '/src/shared/providers/artists.dart';
+import '/src/shared/classes/classes.dart';
+import '/src/shared/extensions.dart';
 
 final randomPlaylistProvider = Provider((ref) {
   final playlists = ref.watch(playlistsProvider);

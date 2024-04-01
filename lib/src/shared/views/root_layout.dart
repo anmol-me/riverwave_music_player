@@ -1,11 +1,12 @@
-import 'package:audio_player/src/shared/playback/playback_notifier.dart';
-import 'package:audio_player/src/shared/views/adaptive_navigation.dart';
-import 'package:audio_player/src/shared/views/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:universal_platform/universal_platform.dart';
-import '../router.dart' as router;
+
+import '/src/shared/router.dart' as router;
+import '/src/shared/playback/playback_notifier.dart';
+import '/src/shared/views/adaptive_navigation.dart';
+import '/src/shared/views/bottom_bar.dart';
 
 class RootLayout extends ConsumerWidget {
   static const _switcherKey = ValueKey('switcherKey');

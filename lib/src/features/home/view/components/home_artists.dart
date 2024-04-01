@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:audio_player/src/shared/classes/classes.dart';
-import 'package:audio_player/src/shared/extensions.dart';
+import '/src/shared/classes/classes.dart';
+import '/src/shared/extensions.dart';
 
 class HomeArtists extends ConsumerWidget {
   const HomeArtists({

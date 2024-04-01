@@ -1,10 +1,10 @@
-import 'package:audio_player/src/shared/providers/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../shared/classes/classes.dart';
-import '../../../../shared/views/views.dart';
+import '/src/shared/providers/theme.dart';
+import '/src/shared/classes/classes.dart';
+import '/src/shared/views/views.dart';
 
 class ArtistEvents extends ConsumerWidget {
   const ArtistEvents({

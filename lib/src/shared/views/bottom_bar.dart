@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'package:audio_player/src/shared/providers/theme.dart';
-import 'package:audio_player/src/shared/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:audio_player/src/shared/playback/playback_notifier.dart';
-import 'package:audio_player/src/shared/extensions.dart';
-import '../classes/classes.dart';
-import '../classes/playback_state.dart';
+import '/src/shared/providers/theme.dart';
+import '/src/shared/views/views.dart';
+import '/src/shared/playback/playback_notifier.dart';
+import '/src/shared/extensions.dart';
+import '/src/shared/classes/classes.dart';
+import '/src/shared/classes/playback_state.dart';
 
 class BottomBar extends ConsumerWidget implements PreferredSizeWidget {
   const BottomBar({super.key});

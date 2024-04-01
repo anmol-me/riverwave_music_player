@@ -1,13 +1,13 @@
-import 'package:audio_player/src/shared/extensions.dart';
-import 'package:audio_player/src/shared/views/adaptive_table.dart';
-import 'package:audio_player/src/shared/views/hoverable_song_play_button.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../shared/classes/classes.dart';
-import '../../../../shared/playback/playback_notifier.dart';
-import '../../../../shared/views/clipped_image.dart';
-import '../../../../shared/views/hover_toggle.dart';
+import '/src/shared/extensions.dart';
+import '/src/shared/views/adaptive_table.dart';
+import '/src/shared/views/hoverable_song_play_button.dart';
+import '/src/shared/classes/classes.dart';
+import '/src/shared/playback/playback_notifier.dart';
+import '/src/shared/views/clipped_image.dart';
+import '/src/shared/views/hover_toggle.dart';
 
 class PlaylistSongs extends StatelessWidget {
   const PlaylistSongs({

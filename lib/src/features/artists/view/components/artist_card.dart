@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:audio_player/src/shared/classes/classes.dart';
-import 'package:audio_player/src/shared/extensions.dart';
-import 'package:audio_player/src/shared/providers/providers.dart';
-import 'package:audio_player/src/shared/views/views.dart';
+import '/src/shared/classes/classes.dart';
+import '/src/shared/extensions.dart';
+import '/src/shared/providers/providers.dart';
+import '/src/shared/views/views.dart';
 
 class ArtistCard extends ConsumerWidget {
   const ArtistCard({

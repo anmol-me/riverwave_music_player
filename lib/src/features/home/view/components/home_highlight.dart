@@ -1,6 +1,6 @@
-import 'package:audio_player/src/shared/views/clickable.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '/src/shared/views/clickable.dart';
 
 class HomeHighlights extends StatelessWidget {
   const HomeHighlights({super.key});

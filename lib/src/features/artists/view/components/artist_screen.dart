@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:audio_player/src/features/artists/view/view.dart';
-import 'package:audio_player/src/shared/classes/classes.dart';
-import 'package:audio_player/src/shared/extensions.dart';
-import 'package:audio_player/src/shared/views/views.dart';
+import '/src/features/artists/view/view.dart';
+import '/src/shared/classes/classes.dart';
+import '/src/shared/extensions.dart';
+import '/src/shared/views/views.dart';
 
 class ArtistScreen extends ConsumerWidget {
   const ArtistScreen({

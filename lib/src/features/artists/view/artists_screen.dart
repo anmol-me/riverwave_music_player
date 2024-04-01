@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:audio_player/src/features/artists/view/view.dart';
-import 'package:audio_player/src/shared/providers/providers.dart';
+import '/src/features/artists/view/view.dart';
+import '/src/shared/providers/providers.dart';
 
 class ArtistsScreen extends ConsumerWidget {
   const ArtistsScreen({super.key});

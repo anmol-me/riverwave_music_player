@@ -1,5 +1,5 @@
-import 'package:audio_player/src/shared/views/views.dart';
 import 'package:flutter/material.dart';
+import '/src/shared/views/views.dart';
 
 class AdaptiveImageCard extends StatelessWidget {
   const AdaptiveImageCard({
