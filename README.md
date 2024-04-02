@@ -31,6 +31,17 @@ used in the original project.
 3. Run the App:
     - Connect a device or emulator and run the app using  `flutter run`  or through your IDE.
 
+## App Preview
+
+<div>
+  <img src="https://github.com/anmol-me/riverwave_music_player/blob/main/assets/images/previews/desktop_preview.jpg" alt="Desktop Preview" width="50%" /><br>
+  <strong>Desktop Preview</strong><br><br>
+  <img src="https://github.com/anmol-me/riverwave_music_player/blob/main/assets/images/previews/tablet_preview.jpg" alt="Tablet Preview" width="30%" /><br>
+  <strong>Tablet Preview</strong><br><br>
+  <img src="https://github.com/anmol-me/riverwave_music_player/blob/main/assets/images/previews/mobile_preview.jpg" alt="Mobile Preview" width="20%" /><br>
+  <strong>Mobile Preview</strong>
+</div>
+
 ## Report issues
 
 If you encounter any issues with the project or have suggestions for improvements, please don't
